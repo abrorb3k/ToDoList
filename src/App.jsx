@@ -23,45 +23,38 @@ const TodoApp = () => {
   const editingId = useSelector((state) => state.todos.editingId);
   const dispatch = useDispatch();
 
-  // Add a new todo
   const handleAdd = () => {
     if (todo.trim()) {
       dispatch(addTodo(todo));
-      setTodo(""); // Clear the input after adding
+      setTodo("");
     }
   };
 
-  // Delete a todo
   const handleDelete = (id, completed = false) => {
     dispatch(removeTodo({ id, completed }));
   };
 
-  // Toggle a todo between completed and pending
   const handleCheck = (id) => {
     dispatch(toggleTodo({ id }));
   };
 
-  // Return a completed todo back to pending
   const handleReturn = (id) => {
     dispatch(toggleTodo({ id }));
   };
 
-  // Start editing a todo
   const handleStartEditing = (id, currentText) => {
-    setEditInput(currentText); // Set the current text to the edit input
-    dispatch(startEditing(id)); // Set the editing state to the current todo's ID
+    setEditInput(currentText);
+    dispatch(startEditing(id));
   };
 
-  // Save the edited todo
   const handleSaveEdit = () => {
     if (editInput.trim()) {
-      dispatch(editTodo({ id: editingId, text: editInput })); // Update the todo
-      setEditInput(""); // Clear the input after saving
-      dispatch(startEditing(null)); // Exit the editing mode
+      dispatch(editTodo({ id: editingId, text: editInput }));
+      setEditInput("");
+      dispatch(startEditing(null));
     }
   };
 
-  // Set the input field to the current todo's text when editing starts
   useEffect(() => {
     if (editingId !== null) {
       const todoToEdit = todos.find((todo) => todo.id === editingId);
@@ -75,7 +68,7 @@ const TodoApp = () => {
         <header>
           <input
             value={todo}
-            onChange={(e) => setTodo(e.target.value)} // Update the todo text
+            onChange={(e) => setTodo(e.target.value)}
             type="text"
             placeholder="Yangi vazifani kiriting..."
           />
@@ -120,7 +113,7 @@ const TodoApp = () => {
             <input
               type="text"
               value={editInput}
-              onChange={(e) => setEditInput(e.target.value)} // Update the edit input
+              onChange={(e) => setEditInput(e.target.value)}
             />
             <button className="save" onClick={handleSaveEdit}>
               Save
